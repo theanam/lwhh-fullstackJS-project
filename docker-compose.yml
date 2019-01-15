@@ -19,3 +19,5 @@ services:
       environment:
         - POSTGRES_PASSWORD=secret
         - POSTGRES_DB=lwhh
+      logging:
+        driver: none
