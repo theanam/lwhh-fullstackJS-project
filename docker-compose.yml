@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+    # The application
+    lwhh-app:
+      build: .
+      ports:
+        - 3000:3000
+      volumes:
+        - ./src:/opt/app/src
+      environment:
+        - PORT=3000
+        - DATABASE=postgres://postgres:secret@lwhh-postgres:5432/lwhh
+      depends_on:
+        - lwhh-postgres
+    # Database server
+    lwhh-postgres:
+      image: postgres:10-alpine
+      environment:
+        - POSTGRES_PASSWORD=secret
+        - POSTGRES_DB=lwhh
