@@ -4,7 +4,7 @@ const router                   = require('express').Router();
 const jwt                      = require('jsonwebtoken');
 const {check,validationResult} = require('express-validator/check');
 const {validate}               = require('../utils/passwords');
-
+const {app_secret}             = require("../config.json");
 
 const loginValidator = [check('email').isEmail(),check('password').isLength({min:5})];
 router.post('/login',loginValidator, async (req,res)=>{
@@ -26,12 +26,17 @@ router.post('/login',loginValidator, async (req,res)=>{
     else{
         // console.log(user.password);
         let [salt,hash] = user.password.split(".");
+        let {name,email,id} = user;
         console.log(`salt: ${salt}`);
         let valid = validate(password,hash,salt);
         if(valid){
+            let token = jwt.sign({id,name,email},app_secret);
             res.json({
                 error:false,
-                message:"User valid"
+                token,
+                user:{
+                    id,name,email
+                }
             });
         }
         else{
