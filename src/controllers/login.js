@@ -7,7 +7,7 @@ const {validate}               = require('../utils/passwords');
 const {app_secret}             = require("../config.json");
 
 const loginValidator = [check('email').isEmail(),check('password').isLength({min:5})];
-router.post('/login',loginValidator, async (req,res)=>{
+router.post('/login',loginValidator, async (req,res,next)=>{
     const errors = (validationResult(req));
     if(!errors.isEmpty()){
         return res
@@ -20,8 +20,8 @@ router.post('/login',loginValidator, async (req,res)=>{
             email
         }
     }));
-    if(!user && uer){
-        res.status(401).json({error:true,message:"User not found"});
+    if(uer && !user){
+        return next(uer);
     }
     else{
         // console.log(user.password);
@@ -39,7 +39,7 @@ router.post('/login',loginValidator, async (req,res)=>{
             });
         }
         else{
-            res.status(401).json({error:true,message:"Password incorrect"});
+            next(new Error("Password Invalid"));
         }
     }
 })

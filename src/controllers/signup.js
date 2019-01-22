@@ -13,7 +13,7 @@ const signupValidator = [
     check('email').isEmail(),
     check('password').isLength({min:5})
 ];
-router.post('/signup',signupValidator,async (req,res)=>{
+router.post('/signup',signupValidator,async (req,res,next)=>{
     const errors = (validationResult(req));
     if(!errors.isEmpty()){
         return res
@@ -30,7 +30,7 @@ router.post('/signup',signupValidator,async (req,res)=>{
         name,email,password
     }));
     if(ucErr && !userCreated){
-        res.status(400).json({error:true,message:ucErr.message});
+        return next(ucErr);
     }
     else{
         res.json({error:false,message:"User created"});
