@@ -27,7 +27,6 @@ router.post('/login',loginValidator, async (req,res)=>{
         // console.log(user.password);
         let [salt,hash] = user.password.split(".");
         let {name,email,id} = user;
-        console.log(`salt: ${salt}`);
         let valid = validate(password,hash,salt);
         if(valid){
             let token = jwt.sign({id,name,email},app_secret);
