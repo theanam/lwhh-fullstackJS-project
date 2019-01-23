@@ -2,18 +2,12 @@ const {User}                   = require('../utils/db');
 const _p                       = require('../utils/promise_errors');
 const router                   = require('express').Router();
 const jwt                      = require('jsonwebtoken');
-const {check,validationResult} = require('express-validator/check');
+const {check}                  = require('express-validator/check');
 const {validate}               = require('../utils/passwords');
 const {app_secret}             = require("../config.json");
-
+const rejectInvalid            = require('../middlewares/reject_invalid');
 const loginValidator = [check('email').isEmail(),check('password').isLength({min:5})];
-router.post('/login',loginValidator, async (req,res,next)=>{
-    const errors = (validationResult(req));
-    if(!errors.isEmpty()){
-        return res
-            .status(422)
-            .json({ errors: errors.array() });
-    }
+router.post('/login',loginValidator,rejectInvalid, async (req,res,next)=>{
     let {password,email} = req.body;
     let [uer,user] = await _p(User.findOne({
         where:{
