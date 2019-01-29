@@ -6,12 +6,16 @@ const {check}                  = require('express-validator/check');
 const {validate}               = require('../utils/passwords');
 const {app_secret}             = require("../config.json");
 const rejectInvalid            = require('../middlewares/reject_invalid');
+const Op                       = require('sequelize').Op;
+
 const loginValidator = [check('email').isEmail(),check('password').isLength({min:5})];
 router.post('/login',loginValidator,rejectInvalid, async (req,res,next)=>{
     let {password,email} = req.body;
     let [uer,user] = await _p(User.findOne({
         where:{
-            email
+            email:{
+                [Op.eq]:email
+            }
         }
     }));
     if(uer && !user){
