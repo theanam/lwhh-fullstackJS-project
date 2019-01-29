@@ -21,6 +21,7 @@ services:
         - POSTGRES_DB=lwhh
       logging:
         driver: none
+    # Adminer to look inside database
     lwhh-adminer:
       image: adminer
       ports:

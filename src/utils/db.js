@@ -14,6 +14,7 @@ const User = db.define('users',{
 });
 
 const Direction = db.define('directions',{
+    user_id:Sequelize.NUMBER,
     destination:Sequelize.TEXT,
     hash:Sequelize.TEXT
 });
