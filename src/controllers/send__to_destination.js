@@ -3,12 +3,12 @@ const {Direction}    = require('../utils/db');
 const _p             = require('../utils/promise_errors');
 const Op             = require('sequelize').Op;
 router.get('/:hash',async (req,res,next)=>{
-    let _hash = req.params.hash;
+    let hash = req.params.hash;
     if(!hash) next(new Error("No redirect found"));
     let [hashErr,hashfound] = await _p(Direction.findOne({
           where:{
             hash:{
-                [Op.eq]:_hash
+                [Op.eq]:hash
             }
         }
     }));
