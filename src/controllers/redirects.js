@@ -23,8 +23,17 @@ router.post('/api/v1/redirects',entryValidator,rejectInvalid,async (req,res,next
             hash
         })
     }
-})
+});
 
-
+router.get('/api/v1/redirects',async (req,res)=>{
+    let [dberr,myDirections] = await _p(Direction.findAll({
+        where:{
+            'user_id':req.user.id
+        },
+        limit:10
+    }));
+    if(dberr) return next(dberr);
+    return res.json(myDirections.map(d=>{return {hash:d.hash,destination:d.destination,id:d.id,created_at:d.createdAt}}));
+});
 
 module.exports = router;
