@@ -3,6 +3,7 @@ const {Direction}    = require('../utils/db');
 const {check}        = require('express-validator/check');
 const rejectInvalid  = require('../middlewares/reject_invalid');
 const _p             = require('../utils/promise_errors');
+
 const entryValidator = [check('url').isURL()]
 router.post('/api/v1/redirects',entryValidator,rejectInvalid,async (req,res,next)=>{
     let user_id = req.user.id;
@@ -14,7 +15,7 @@ router.post('/api/v1/redirects',entryValidator,rejectInvalid,async (req,res,next
         user_id,destination,hash
     }));
     if(cretErr && !created){
-        next(createerr);
+        next(cretErr);
     }
     else{
         res.json({
