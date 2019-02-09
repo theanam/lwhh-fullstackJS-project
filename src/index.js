@@ -6,7 +6,9 @@ const auth    = require('./middlewares/auth');
 const app     = express();
 const errh    = require('./middlewares/error_handler');
 const red     = require('./controllers/redirects');
+const cors    = require('./middlewares/cors');
 // Middlewares
+app.use(cors);
 app.use(bp.json());
 app.use('/api',auth);
 //Routes

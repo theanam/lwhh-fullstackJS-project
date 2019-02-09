@@ -11,6 +11,7 @@ services:
       environment:
         - PORT=3000
         - DATABASE=postgres://postgres:secret@lwhh-postgres:5432/lwhh
+        - CORS=yes
       depends_on:
         - lwhh-postgres
     # Database server
