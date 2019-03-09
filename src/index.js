@@ -7,10 +7,12 @@ const app     = express();
 const errh    = require('./middlewares/error_handler');
 const red     = require('./controllers/redirects');
 const cors    = require('./middlewares/cors');
+const path    = require('path');
 // Middlewares
 app.use(cors);
 app.use(bp.json());
 app.use('/api',auth);
+app.use(express.static(path.resolve(__dirname,'../public')));
 //Routes
 app.use(signup);
 app.use(login);

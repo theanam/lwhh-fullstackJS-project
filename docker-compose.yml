@@ -8,6 +8,7 @@ services:
         - 3000:3000
       volumes:
         - ./src:/opt/app/src
+        - ./frontend/public:/opt/app/public
       environment:
         - PORT=3000
         - DATABASE=postgres://postgres:secret@lwhh-postgres:5432/lwhh
