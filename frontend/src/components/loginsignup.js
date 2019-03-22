@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../style.css';
 import axios from 'axios';
 import values from '../values';
+import {Redirect} from 'react-router-dom';
 export default class LoginSignup extends Component {
   state={
       isSignup:false,
@@ -71,7 +72,17 @@ export default class LoginSignup extends Component {
       }
     }
   }
+  componentWillMount(){
+    if(localStorage.getItem('access_token')){
+      this.setState({loginSuccess:true});
+    }
+  }
   render() {
+    //Redirect for login
+    if(this.state.loginSuccess){
+      return (<Redirect to="/"/>);
+    }
+    //General Login page
     return (
       <div className="container" style={styles.container}>
         <h2>{this.state.isSignup?'Sign Up':'Log In'}</h2>

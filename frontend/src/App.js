@@ -3,9 +3,13 @@ import LoginSignup from './components/loginsignup';
 import Urls from './components/urls';
 import { BrowserRouter as Router, Route, Link,Redirect } from "react-router-dom";
 function Home(){
-  return (<div>
-      <Link to="/loginsignup">Login signup</Link>
-    </div>);
+  let token = localStorage.getItem('access_token');
+  if(token){
+    return (<Redirect to="/urls"/>);
+  }
+  else{
+    return (<Redirect to="/loginsignup"/>);
+  }
 }
 class App extends Component {
   render() {
