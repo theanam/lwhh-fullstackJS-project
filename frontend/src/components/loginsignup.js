@@ -7,7 +7,8 @@ export default class LoginSignup extends Component {
       isSignup:false,
       fullname:"",
       email:"",
-      password:""
+      password:"",
+      loginSuccess:false
   }
   showSignupForm = ()=>{
     this.setState({isSignup:true})
@@ -25,9 +26,9 @@ export default class LoginSignup extends Component {
     });
   }
   loginSignup = ()=>{
+    let {email,password} = this.state;
     if(this.state.isSignup){
       if(this.state.fullname && this.state.email && this.state.password){
-        let {email,password} = this.state;
         let name = this.state.fullname;
         axios.post(`${values.BASE}/signup`,{name,email,password})
           .then(d=>{
@@ -53,6 +54,15 @@ export default class LoginSignup extends Component {
     }
     else{
       // Login Code
+      axios.post(`${values.BASE}/login`,{email,password})
+        .then(success=>{
+          //debugger;
+          localStorage.setItem('access_token',success.data.token);
+          this.setState({loginSuccess:true});
+        })
+        .catch(e=>{
+          alert(`Login Unsuccessful`);
+        });
       if(this.state.email && this.state.password){
         
       }
