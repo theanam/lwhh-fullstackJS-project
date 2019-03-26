@@ -54,8 +54,9 @@ export default class LoginSignup extends Component {
       }
     }
     else{
-      // Login Code
-      axios.post(`${values.BASE}/login`,{email,password})
+      if(this.state.email && this.state.password){
+        // Login Code
+        axios.post(`${values.BASE}/login`,{email,password})
         .then(success=>{
           //debugger;
           localStorage.setItem('access_token',success.data.token);
@@ -64,8 +65,6 @@ export default class LoginSignup extends Component {
         .catch(e=>{
           alert(`Login Unsuccessful`);
         });
-      if(this.state.email && this.state.password){
-        
       }
       else{
         alert('Parameter missing for Login');
