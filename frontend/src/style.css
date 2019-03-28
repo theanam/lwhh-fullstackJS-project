@@ -30,9 +30,10 @@ html,body{
 }
 body{
     display:flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
     font-family: sans-serif;
+    padding-top:100px;
 }
 .commonsize{
     width:90vw;

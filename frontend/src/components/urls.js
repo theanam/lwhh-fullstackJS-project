@@ -12,12 +12,21 @@ function Conditional(props){
     return null;
   }
 }
+function UrlComponent(props){
+  return(<div className="url">
+  <h4 className="shortened-url"><a target="_blank" href={`${values.BASE}/${props.data.hash}`}>{`${values.BASE}/${props.data.hash}`}</a></h4>
+  <div className="smalltext">
+  <a target="_blank" href={props.data.destination}>{props.data.destination}</a>
+  </div>
+  </div>);
+}
 export default class Urls extends Component {
   state={
     loggedIn:true,
     loading:true,
     token:"",
-    newHash:""
+    newHash:"",
+    urlList:[]
   }
   componentWillMount(){
     let token = localStorage.getItem('access_token');
@@ -25,16 +34,21 @@ export default class Urls extends Component {
       this.setState({loggedIn:false});
     }
     else{
-      this.setState({token});
+      this.setState({token},this.getMyList);
     }
-  }
-  addNewURL = ()=>{
-
   }
   scheduleClear = ()=>{
     this.setState({newHash:""});
   }
-  
+  getMyList = ()=>{
+    axios.get(`${values.BASE}/api/v1/redirects`,{headers:{'auth-token':this.state.token}})
+      .then(data=>{
+        this.setState({urlList:data.data});
+      })
+      .catch(e=>{
+        console.log(e);
+      })
+  }
   handleKeyUp=(evt)=>{
     if(evt.keyCode===13){ //enter key
       let urlVal = evt.target.value;
@@ -46,6 +60,7 @@ export default class Urls extends Component {
             console.log(s);
             //alert(`Direction Created! ${values.BASE}/${s.data.hash}`);
             this.setState({newHash:s.data.hash});
+            this.getMyList();
             setTimeout(this.scheduleClear,10000);
           })
           .catch(e=>console.log(e))
@@ -55,6 +70,7 @@ export default class Urls extends Component {
       }
     }
   }
+
   render() {
     if(!this.state.loggedIn){
       return (<Redirect to="/"/>);
@@ -79,18 +95,11 @@ export default class Urls extends Component {
           <h3>Your URL List</h3>
         </div>
         <div className="url-list">
-          {/* This part will repeat */}
-          <div className="url">
-            <h4 className="shortened-url"><a target="_blank" href="http://app.url/key">app.url/key</a></h4>
-            <div className="smalltext">
-            <a target="_blank" href="http:///param/anotherparam">http://long.url/param/anotherparam</a>
-            </div>
-          </div>
-          {/* This part will repeat */}
+          {this.state.urlList.reverse().map((el,i)=><UrlComponent data={el} key={i}/>)}
           {/* Empty State */}
-          <div className="empty">
+          <Conditional condition={!this.state.urlList.length} className="empty">
             🧐 hmm! Could not find anything yet!
-          </div>
+          </Conditional>
         </div>
       </div>
     )
