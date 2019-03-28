@@ -1,12 +1,39 @@
 import React, { Component } from 'react'
 import {Redirect} from "react-router-dom";
+import values from '../values';
+import axios from 'axios';
 export default class Urls extends Component {
   state={
-    loggedIn:true
+    loggedIn:true,
+    loading:true,
+    token:""
   }
   componentWillMount(){
-    if(!localStorage.getItem('access_token')){
+    let token = localStorage.getItem('access_token');
+    if(!token){
       this.setState({loggedIn:false});
+    }
+    else{
+      this.setState({token});
+    }
+  }
+  addNewURL = ()=>{
+
+  }
+  handleKeyUp=(evt)=>{
+    if(evt.keyCode===13){ //enter key
+      if(evt.target.value && evt.target.value.match(/^https?:\/\/.{3,}/)){
+        this.setState({loading:true});
+        axios.post(`${values.BASE}/api/v1/redirects`,{url:evt.target.value},{headers:{'auth-token':this.state.token}})
+          .then(s=>{
+            console.log(s);
+            alert(`Direction Created! ${values.BASE}/${s.data.hash}`);
+          })
+          .catch(e=>console.log(e))
+          .finally(()=>{
+            this.setState({loading:false});
+          });
+      }
     }
   }
   render() {
@@ -21,7 +48,7 @@ export default class Urls extends Component {
             Add New URL
           </h3>
           <div>
-            <input placeholder="Enter long URL. e.g: https://my-long.url/parameters?query" type="url"/>
+            <input onKeyUp={this.handleKeyUp} placeholder="Enter long URL. e.g: https://my-long.url/parameters?query" type="url"/>
           </div>
         </div>
         {/* Success */}
