@@ -2,11 +2,22 @@ import React, { Component } from 'react'
 import {Redirect} from "react-router-dom";
 import values from '../values';
 import axios from 'axios';
+function Conditional(props){
+  if(props.condition){
+    return (<div className={props.className}>
+      {props.children}
+    </div>);
+  }
+  else{
+    return null;
+  }
+}
 export default class Urls extends Component {
   state={
     loggedIn:true,
     loading:true,
-    token:""
+    token:"",
+    newHash:""
   }
   componentWillMount(){
     let token = localStorage.getItem('access_token');
@@ -20,14 +31,22 @@ export default class Urls extends Component {
   addNewURL = ()=>{
 
   }
+  scheduleClear = ()=>{
+    this.setState({newHash:""});
+  }
+  
   handleKeyUp=(evt)=>{
     if(evt.keyCode===13){ //enter key
-      if(evt.target.value && evt.target.value.match(/^https?:\/\/.{3,}/)){
+      let urlVal = evt.target.value;
+      evt.target.value = "";
+      if(urlVal && urlVal.match(/^https?:\/\/.{3,}/)){
         this.setState({loading:true});
-        axios.post(`${values.BASE}/api/v1/redirects`,{url:evt.target.value},{headers:{'auth-token':this.state.token}})
+        axios.post(`${values.BASE}/api/v1/redirects`,{url:urlVal},{headers:{'auth-token':this.state.token}})
           .then(s=>{
             console.log(s);
-            alert(`Direction Created! ${values.BASE}/${s.data.hash}`);
+            //alert(`Direction Created! ${values.BASE}/${s.data.hash}`);
+            this.setState({newHash:s.data.hash});
+            setTimeout(this.scheduleClear,10000);
           })
           .catch(e=>console.log(e))
           .finally(()=>{
@@ -52,9 +71,9 @@ export default class Urls extends Component {
           </div>
         </div>
         {/* Success */}
-        <div className="success commonsize">
-          Your new Shortened URL is: <a target="_blank" href="http://app.url/key">http://app.url/key</a>
-        </div>
+        <Conditional className="success commonsize" condition={this.state.newHash}>
+          Your new Shortened URL is: <a target="_blank" href={`${values.BASE}/${this.state.newHash}`}>{`${values.BASE}/${this.state.newHash}`}</a>
+        </Conditional>
         {/* List */}
         <div className="commonsize">
           <h3>Your URL List</h3>
@@ -64,7 +83,7 @@ export default class Urls extends Component {
           <div className="url">
             <h4 className="shortened-url"><a target="_blank" href="http://app.url/key">app.url/key</a></h4>
             <div className="smalltext">
-            <a target="_blank" href="http://long.url/param/anotherparam">http://long.url/param/anotherparam</a>
+            <a target="_blank" href="http:///param/anotherparam">http://long.url/param/anotherparam</a>
             </div>
           </div>
           {/* This part will repeat */}
