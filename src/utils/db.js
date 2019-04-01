@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const CONNECTION_STRING = process.env.DATABASE || "postgres://postgres:secret@localhost:5432/lwhh";
+const CONNECTION_STRING = process.env.DATABASE_URL || "postgres://postgres:secret@localhost:5432/lwhh";
 
 const db = new Sequelize(CONNECTION_STRING);
 
