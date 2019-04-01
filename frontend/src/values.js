@@ -1,4 +1,4 @@
 const values = {
-    BASE: "http://localhost:3000"
+    BASE: ""
 }
 export default values;
