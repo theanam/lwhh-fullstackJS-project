@@ -12,7 +12,7 @@ const path    = require('path');
 app.use(cors);
 app.use(bp.json());
 app.use('/api',auth);
-app.use(express.static(path.resolve(__dirname,'../frontend/build')));
+app.use(express.static(path.resolve(__dirname,'../../frontend/build')));
 //Routes
 app.use(signup);
 app.use(login);
