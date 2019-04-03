@@ -1,4 +1,4 @@
 const values = {
-    BASE: ""
+    BASE: "https://lwhhjs.herokuapp.com"
 }
 export default values;
