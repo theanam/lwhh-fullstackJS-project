@@ -1,0 +1,169 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2019-02-09T19:35:26.652Z",
+	"__export_source": "insomnia.desktop.app:v6.3.2",
+	"resources": [
+		{
+			"_id": "wrk_225ea7074c334f1f89992d78501e50f4",
+			"created": 1548268224923,
+			"description": "",
+			"modified": 1548268224923,
+			"name": "LWHH_URL_SHORTENER",
+			"parentId": null,
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_c19ed0bf6d7844e99f0e7e3d13634211",
+			"color": null,
+			"created": 1548268224936,
+			"data": {},
+			"isPrivate": false,
+			"metaSortKey": 1548268224936,
+			"modified": 1548268224936,
+			"name": "New Environment",
+			"parentId": "wrk_225ea7074c334f1f89992d78501e50f4",
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_b404a229e389498ea943d2b467e0e46a",
+			"cookies": [],
+			"created": 1548268224939,
+			"modified": 1548268224939,
+			"name": "Default Jar",
+			"parentId": "wrk_225ea7074c334f1f89992d78501e50f4",
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "req_0c757c396ecd4b35b546bd32b0dd3120",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"name\":\"Kuddus Boyati number 2\",\n\t\"email\":\"me@anam.net\",\n\t\"password\":\"sectretsdasd\"\n}"
+			},
+			"created": 1548268239115,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_c134f4fec8044ead95727882e1aef0af",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1548268239115,
+			"method": "POST",
+			"modified": 1549302657680,
+			"name": "SIGN UP",
+			"parameters": [],
+			"parentId": "wrk_225ea7074c334f1f89992d78501e50f4",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:3000/signup",
+			"_type": "request"
+		},
+		{
+			"_id": "req_ed24d530d5b044959fc24c8fddd3b33b",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"email\":\"me@anam.net\",\n\t\"password\":\"sectretsdasd\"\n}"
+			},
+			"created": 1548269936353,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_fce5c7bd50b54b739a38523a2547d441",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1548269936353,
+			"method": "POST",
+			"modified": 1549302674512,
+			"name": "LOGIN",
+			"parameters": [],
+			"parentId": "wrk_225ea7074c334f1f89992d78501e50f4",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:3000/login",
+			"_type": "request"
+		},
+		{
+			"_id": "req_a878a5aeb5b14c3fb218c5f9c043ddb1",
+			"authentication": {},
+			"body": {},
+			"created": 1548273286016,
+			"description": "",
+			"headers": [
+				{
+					"disabled": false,
+					"id": "pair_6335a998a6a14d7b956b4c5363752ea7",
+					"name": "auth-token",
+					"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikt1ZGR1cyBCb3lhdGkgbnVtYmVyIDIiLCJlbWFpbCI6Im1lQGFuYW0ubmV0IiwiaWF0IjoxNTQ5MzAyNjc2fQ.G7SObDhGQ9ZR2nNgZ0RWe2m7lzOszIJwJvR6h9Y3XEc"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1548273286016,
+			"method": "GET",
+			"modified": 1549740688988,
+			"name": "GET MY LIST",
+			"parameters": [],
+			"parentId": "wrk_225ea7074c334f1f89992d78501e50f4",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:3000/api/v1/redirects",
+			"_type": "request"
+		},
+		{
+			"_id": "req_bdd3678d5ba74bfda51790e76e70a54f",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"url\":\"https://evileval.io\"\n}"
+			},
+			"created": 1549302485156,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_dc59b13a919d4f68a48ff316d98ba10e",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_faa92ea1a541421b984e454a0f388b3f",
+					"name": "auth-token",
+					"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikt1ZGR1cyBCb3lhdGkgbnVtYmVyIDIiLCJlbWFpbCI6Im1lQGFuYW0ubmV0IiwiaWF0IjoxNTQ5MzAyNjc2fQ.G7SObDhGQ9ZR2nNgZ0RWe2m7lzOszIJwJvR6h9Y3XEc"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1549302485157,
+			"method": "POST",
+			"modified": 1549740343956,
+			"name": "CREATE REDIRECTS",
+			"parameters": [],
+			"parentId": "wrk_225ea7074c334f1f89992d78501e50f4",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:3000/api/v1/redirects",
+			"_type": "request"
+		}
+	]
+}
