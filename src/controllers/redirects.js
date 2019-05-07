@@ -36,7 +36,7 @@ router.get('/api/v1/redirects',async (req,res)=>{
 });
 router.get(`/:hash`,async (req,res,next)=>{
     let URLhash = req.param('hash');
-    let [dberr,hashDirection] = await _p(Direction.find({
+    let [dberr,hashDirection] = await _p(Direction.findOne({
         where:{
             'hash':URLhash
         }
